@@ -20,6 +20,7 @@ namespace ProjetoFinal.Models
                 return builder.ToString();
             }
         }
+        //teste
 
         public string CriptografarNomeUsuario(string nomeUsuario)
         {
