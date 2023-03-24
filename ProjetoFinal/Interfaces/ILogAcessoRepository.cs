@@ -1,4 +1,6 @@
-﻿namespace ProjetoFinal.Interfaces
+﻿using ProjetoFinal.Models;
+
+namespace ProjetoFinal.Interfaces
 {
     public interface ILogAcessoRepository
     {

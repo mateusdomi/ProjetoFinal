@@ -1,4 +1,5 @@
-﻿using ProjetoFinal.Interfaces;
+﻿using Dapper;
+using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
 using System.Data.SqlClient;
 
@@ -71,7 +72,7 @@ namespace ProjetoFinal.Services
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                await connection.OpenAsync();
+                 connection.Open();
 
                 var sql = "UPDATE Notas SET Nota = @Nota WHERE Id = @Id";
                 var parametros = new { Id = nota.Id, Nota = nota.NotaValor };

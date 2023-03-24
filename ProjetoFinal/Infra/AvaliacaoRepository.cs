@@ -1,4 +1,5 @@
-﻿using ProjetoFinal.Interfaces;
+﻿using Dapper;
+using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
 using System.Data.SqlClient;
 
