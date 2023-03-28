@@ -1,4 +1,5 @@
-﻿using ProjetoFinal.Interfaces;
+﻿using ProjetoFinal.Connection;
+using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
@@ -9,13 +10,6 @@ namespace ProjetoFinal.Infra
 
     public class LoginRepository : ILoginRepository
     {
-        private readonly string _connectionString;
-
-        public LoginRepository(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
         public async Task<Login> SaveLoginAsync(Login login)
         {
             // Criptografa a senha
@@ -26,9 +20,9 @@ namespace ProjetoFinal.Infra
             }
 
             // Salva o login no banco de dados
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
-                await connection.OpenAsync();
+              
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = @"

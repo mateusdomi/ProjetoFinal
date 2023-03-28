@@ -1,4 +1,5 @@
-﻿using ProjetoFinal.Interfaces;
+﻿using ProjetoFinal.Connection;
+using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
 using System;
 using System.Collections.Generic;
@@ -8,25 +9,20 @@ using System.Threading.Tasks;
 
 namespace ProjetoFinal.Services
 {
-  
+
     public class TurmaRepository : ITurmaRepository
     {
-        private readonly string _connectionString;
-
-        public TurmaRepository(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
+        
+        
         public async Task<Turma> ObterPorId(int id)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
                 var sql = "SELECT * FROM Turma WHERE Id = @Id";
-                var cmd = new SqlCommand(sql, conn);
+                var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Id", id);
 
-                await conn.OpenAsync();
+                await connection.OpenAsync();
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
@@ -43,13 +39,13 @@ namespace ProjetoFinal.Services
         {
             var turmas = new List<Turma>();
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
                 var sql = "SELECT * FROM Turma WHERE IdProfessor = @IdProfessor";
-                var cmd = new SqlCommand(sql, conn);
+                var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@IdProfessor", idProfessor);
 
-                await conn.OpenAsync();
+                await connection.OpenAsync();
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
@@ -65,42 +61,42 @@ namespace ProjetoFinal.Services
 
         public async Task Inserir(Turma turma)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
                 var sql = "INSERT INTO Turma (Nome, IdProfessor) VALUES (@Nome, @IdProfessor)";
-                var cmd = new SqlCommand(sql, conn);
+                var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Nome", turma.Nome);
                 cmd.Parameters.AddWithValue("@IdProfessor", turma.IdProfessor);
 
-                await conn.OpenAsync();
+                await connection.OpenAsync();
                 await cmd.ExecuteNonQueryAsync();
             }
         }
 
         public async Task Atualizar(Turma turma)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
                 var sql = "UPDATE Turma SET Nome = @Nome, IdProfessor = @IdProfessor WHERE Id = @Id";
-                var cmd = new SqlCommand(sql, conn);
+                var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Nome", turma.Nome);
                 cmd.Parameters.AddWithValue("@IdProfessor", turma.IdProfessor);
                 cmd.Parameters.AddWithValue("@Id", turma.Id);
 
-                await conn.OpenAsync();
+                await connection.OpenAsync();
                 await cmd.ExecuteNonQueryAsync();
             }
         }
 
         public async Task Excluir(int id)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
                 var sql = "DELETE FROM Turma WHERE Id = @Id";
-                var cmd = new SqlCommand(sql, conn);
+                var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Id", id);
 
-                await conn.OpenAsync();
+                await connection.OpenAsync();
                 await cmd.ExecuteNonQueryAsync();
             }
         }

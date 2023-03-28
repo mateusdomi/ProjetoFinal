@@ -1,4 +1,5 @@
-﻿using ProjetoFinal.Interfaces;
+﻿using ProjetoFinal.Connection;
+using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoFinal.Services
 {
-    
+
     public class DisciplinaRepository : IDisciplinaRepository
     {
         private readonly string _connectionString;
@@ -19,10 +20,8 @@ namespace ProjetoFinal.Services
 
         public async Task<Disciplina> ObterPorId(int id)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
-                await connection.OpenAsync();
-
                 using (var command = new SqlCommand("SELECT Id, Nome, ProfessorId FROM Disciplina WHERE Id = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -49,10 +48,8 @@ namespace ProjetoFinal.Services
         {
             var disciplinas = new List<Disciplina>();
 
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
-                await connection.OpenAsync();
-
                 using (var command = new SqlCommand("SELECT Id, Nome, ProfessorId FROM Disciplina WHERE ProfessorId = @ProfessorId", connection))
                 {
                     command.Parameters.AddWithValue("@ProfessorId", idProfessor);
@@ -77,10 +74,8 @@ namespace ProjetoFinal.Services
 
         public async Task Inserir(Disciplina disciplina)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
-                await connection.OpenAsync();
-
                 using (var command = new SqlCommand("INSERT INTO Disciplina (Nome, ProfessorId) VALUES (@Nome, @ProfessorId)", connection))
                 {
                     command.Parameters.AddWithValue("@Nome", disciplina.Nome);
@@ -93,10 +88,8 @@ namespace ProjetoFinal.Services
 
         public async Task Atualizar(Disciplina disciplina)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
-                await connection.OpenAsync();
-
                 using (var command = new SqlCommand("UPDATE Disciplina SET Nome = @Nome, ProfessorId = @ProfessorId WHERE Id = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@Id", disciplina.Id);
@@ -110,10 +103,8 @@ namespace ProjetoFinal.Services
 
         public async Task Excluir(int id)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = await Conexao.AbrirAsync())
             {
-                await connection.OpenAsync();
-
                 using (var command = new SqlCommand("DELETE FROM Disciplina WHERE Id = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
