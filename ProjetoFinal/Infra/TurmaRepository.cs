@@ -1,6 +1,7 @@
 ﻿using ProjetoFinal.Connection;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
+using ProjetoFinal.Models.Turmas;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -77,10 +78,10 @@ namespace ProjetoFinal.Services
         {
             using (var connection = await Conexao.AbrirAsync())
             {
-                var sql = "UPDATE Turma SET Nome = @Nome, IdProfessor = @IdProfessor WHERE Id = @Id";
+                var sql = "UPDATE Turma SET Nome = @Nome WHERE Id = @Id";
                 var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Nome", turma.Nome);
-                cmd.Parameters.AddWithValue("@IdProfessor", turma.IdProfessor);
+                
                 cmd.Parameters.AddWithValue("@Id", turma.Id);
 
                 await connection.OpenAsync();
@@ -107,7 +108,6 @@ namespace ProjetoFinal.Services
             {
                 Id = Convert.ToInt32(reader["Id"]),
                 Nome = reader["Nome"].ToString(),
-                IdProfessor = Convert.ToInt32(reader["IdProfessor"])
             };
         }
     }

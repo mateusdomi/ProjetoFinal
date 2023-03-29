@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace ProjetoFinal.Models
+namespace ProjetoFinal.Models.Criptografias
 {
     public class Criptografia
     {
@@ -20,7 +20,6 @@ namespace ProjetoFinal.Models
                 return builder.ToString();
             }
         }
-        //teste
 
         public string CriptografarNomeUsuario(string nomeUsuario)
         {

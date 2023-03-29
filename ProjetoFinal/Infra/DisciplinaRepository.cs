@@ -1,6 +1,7 @@
 ﻿using ProjetoFinal.Connection;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
+using ProjetoFinal.Models.Disciplinas;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
