@@ -67,7 +67,7 @@ namespace ProjetoFinal.Services
                 var sql = "INSERT INTO Turma (Nome, IdProfessor) VALUES (@Nome, @IdProfessor)";
                 var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.AddWithValue("@Nome", turma.Nome);
-                cmd.Parameters.AddWithValue("@IdProfessor", turma.IdProfessor);
+                //cmd.Parameters.AddWithValue("@IdProfessor", turma.IdProfessor);
 
                 await connection.OpenAsync();
                 await cmd.ExecuteNonQueryAsync();

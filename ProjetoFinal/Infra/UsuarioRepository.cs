@@ -1,6 +1,7 @@
 ﻿using ProjetoFinal.Connection;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
+using ProjetoFinal.Models.Usuarios;
 using System.Data.SqlClient;
 
 namespace ProjetoFinal.Services

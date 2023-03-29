@@ -1,6 +1,7 @@
 ﻿using ProjetoFinal.Connection;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
+using ProjetoFinal.Models.LogRegistros;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,9 +16,9 @@ namespace ProjetoFinal.Infra
     {
         
 
-        public async Task<IEnumerable<LogAtividade>> GetLogAtividadesAsync()
+        public async Task<IEnumerable<Log>> GetLogAtividadesAsync()
         {
-            var logAtividades = new List<LogAtividade>();
+            var logAtividades = new List<Log>();
 
             using (var connection = await Conexao.AbrirAsync())
             {
@@ -27,7 +28,7 @@ namespace ProjetoFinal.Infra
                     {
                         while (await reader.ReadAsync())
                         {
-                            var logAtividade = new LogAtividade
+                            var logAtividade = new Log
                             {
                                 Id = (int)reader["Id"],
                                 IdUsuario = (int)reader["IdUsuario"],
@@ -44,7 +45,7 @@ namespace ProjetoFinal.Infra
             return logAtividades;
         }
 
-        public async Task<LogAtividade> GetLogAtividadeByIdAsync(int id)
+        public async Task<Log> GetLogAtividadeByIdAsync(int id)
         {
             using (var connection = await Conexao.AbrirAsync())
             {
@@ -57,7 +58,7 @@ namespace ProjetoFinal.Infra
                     {
                         if (await reader.ReadAsync())
                         {
-                            var logAtividade = new LogAtividade
+                            var logAtividade = new Log
                             {
                                 Id = (int)reader["Id"],
                                 IdUsuario = (int)reader["IdUsuario"],
@@ -74,7 +75,7 @@ namespace ProjetoFinal.Infra
             return null;
         }
 
-        public async Task CreateLogAtividadeAsync(LogAtividade logAtividade)
+        public async Task CreateLogAtividadeAsync(Log logAtividade)
         {
             using (var connection = await Conexao.AbrirAsync())
             {
@@ -89,7 +90,7 @@ namespace ProjetoFinal.Infra
             }
         }
 
-        public async Task UpdateLogAtividadeAsync(LogAtividade logAtividade)
+        public async Task UpdateLogAtividadeAsync(Log logAtividade)
         {
             using (SqlConnection connection = await Conexao.AbrirAsync())
             {

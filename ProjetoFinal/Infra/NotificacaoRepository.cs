@@ -1,6 +1,7 @@
 ﻿using ProjetoFinal.Connection;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
+using ProjetoFinal.Models.Notificacoes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,13 +23,13 @@ namespace ProjetoFinal.Infra
                     {
                         if (await reader.ReadAsync())
                         {
-                            return new Notificacao
-                            {
-                                Id = (int)reader["Id"],
-                                Mensagem = reader["Mensagem"].ToString(),
-                                Data = (DateTime)reader["Data"],
-                                IdUsuario = (int)reader["IdUsuario"]
-                            };
+                            // return new Notificacao
+                            // {
+                            // Id = (int)reader["Id"],
+                            // Mensagem = reader["Mensagem"].ToString(),
+                            //   Data = (DateTime)reader["Data"],
+                            //   IdUsuario = (int)reader["IdUsuario"]
+                            // };
                         }
                     }
                 }
@@ -50,13 +51,13 @@ namespace ProjetoFinal.Infra
                     {
                         while (await reader.ReadAsync())
                         {
-                            notificacoes.Add(new Notificacao
-                            {
-                                Id = (int)reader["Id"],
-                                Mensagem = reader["Mensagem"].ToString(),
-                                Data = (DateTime)reader["Data"],
-                                IdUsuario = (int)reader["IdUsuario"]
-                            });
+                            // return new Notificacao
+                            // {
+                            // Id = (int)reader["Id"],
+                            // Mensagem = reader["Mensagem"].ToString(),
+                            //   Data = (DateTime)reader["Data"],
+                            //   IdUsuario = (int)reader["IdUsuario"]
+                            // };
                         }
                     }
                 }
@@ -69,7 +70,7 @@ namespace ProjetoFinal.Infra
         {
             using (var connection = await Conexao.AbrirAsync())
             {
-                
+
                 using (var command = new SqlCommand("INSERT INTO Notificacoes (Mensagem, Data, IdUsuario) VALUES (@Mensagem, @Data, @IdUsuario)", connection))
                 {
                     command.Parameters.AddWithValue("@Mensagem", notificacao.Mensagem);

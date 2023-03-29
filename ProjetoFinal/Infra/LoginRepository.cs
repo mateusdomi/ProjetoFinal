@@ -1,6 +1,7 @@
 ﻿using ProjetoFinal.Connection;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models;
+using ProjetoFinal.Models.Logins;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;

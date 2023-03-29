@@ -1,4 +1,5 @@
 ﻿using ProjetoFinal.Models;
+using ProjetoFinal.Models.Usuarios;
 
 namespace ProjetoFinal.Interfaces
 {

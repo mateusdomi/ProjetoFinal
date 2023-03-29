@@ -1,4 +1,5 @@
 ﻿using ProjetoFinal.Models.Avaliacoes;
+using ProjetoFinal.Models.Usuarios;
 
 namespace ProjetoFinal.Models.Notas
 {

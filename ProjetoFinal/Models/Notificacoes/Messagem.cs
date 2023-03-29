@@ -1,16 +1,16 @@
 ﻿namespace ProjetoFinal.Models.Notificacoes
 {
-    public class Messagem
+    public class Mesagem
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public Messagem()
+        public Mesagem()
         {
 
         }
-        public Messagem(int id, string name, string description)
+        public Mesagem(int id, string name, string description)
         {
             Id = id;
             Name = name;
