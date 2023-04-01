@@ -4,17 +4,22 @@ namespace ProjetoFinal.Models.Notificacoes
 {
     public class Notificacao
     {
-        public int Id { get; set; }
-        public int IdUsuario { get; set; }
+        public int NotificacaoId { get; set; }
+        public string Nome { get; set; }
+        public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
         public DateTime Data { get; set; }
-
         public int IdMensagem { get; set; }
-        public Mesagem Mensagem { get; set; }
-        public Notificacao(int id, int idUsuario, Usuario usuario, DateTime data, int idMensagem, Mesagem mensagem)
+        public Mensagem Mensagem { get; set; }
+        public Notificacao()
         {
-            Id = id;
-            IdUsuario = idUsuario;
+                
+        }
+
+        public Notificacao(int id, int usuarioId, Usuario usuario, DateTime data, int idMensagem, Mensagem mensagem)
+        {
+            NotificacaoId = id;
+            UsuarioId = usuarioId;
             Usuario = usuario;
             Data = data;
             IdMensagem = idMensagem;

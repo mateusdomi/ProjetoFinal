@@ -5,11 +5,11 @@ namespace ProjetoFinal.Interfaces
 {
     public interface IUsuarioRepository
     {
-        Task<Usuario> Autenticar(string email, string senha);
-        Task<Usuario> ObterPorId(int id);
-        Task<Usuario> ObterPorEmail(string email);
-        Task Inserir(Usuario usuario);
-        Task Atualizar(Usuario usuario);
+        Task<Administrador> Autenticar(string email, string senha);
+        Task<Administrador> ObterPorId(int id);
+        Task<Administrador> ObterPorEmail(string email);
+        Task Inserir(Administrador usuario);
+        Task Atualizar(Administrador usuario);
         Task Excluir(int id);
     }
 

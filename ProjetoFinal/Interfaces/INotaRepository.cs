@@ -1,15 +1,14 @@
-﻿using ProjetoFinal.Models;
-using ProjetoFinal.Models.Notas;
+﻿using ProjetoFinal.Models.Avaliacoes;
 
 namespace ProjetoFinal.Interfaces
 {
     public interface INotaRepository
     {
-        Task<Nota> ObterPorId(int id);
-        Task<IEnumerable<Nota>> ObterPorAvaliacao(int idAvaliacao);
-        Task<IEnumerable<Nota>> ObterPorAluno(int idAluno);
-        Task Inserir(Nota nota);
-        Task Atualizar(Nota nota);
+        Task<Avaliacao> ObterPorId(int id);
+        Task<IEnumerable<Avaliacao>> ObterPorAvaliacao(int idAvaliacao);
+        Task<IEnumerable<Avaliacao>> ObterPorAluno(int idAluno);
+        Task Inserir(Avaliacao nota);
+        Task Atualizar(Avaliacao nota);
         Task Excluir(int id);
     }
 }

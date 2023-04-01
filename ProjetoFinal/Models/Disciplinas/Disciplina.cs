@@ -1,23 +1,24 @@
-﻿using ProjetoFinal.Models.Usuarios;
+﻿using ProjetoFinal.Models.Materias;
+using ProjetoFinal.Models.Usuarios;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoFinal.Models.Disciplinas
 {
     public class Disciplina
     {
-        public int Id { get; set; }
+        public int DisciplinaId { get; set; }
         public string Nome { get; set; }
-        public int IdProfessor { get; set; }
-        public Professor Professor { get; set; }
+        public ICollection<Materia> Materias { get; set; } = new List<Materia>();
+        public ICollection<Professor> Professores { get; set; } = new List<Professor>();
 
         public Disciplina()
         {
         }
-        public Disciplina(int id, string nome, int idProfessor, Professor professor)
+
+        public Disciplina(int id, string nome)
         {
-            Id = id;
+            DisciplinaId = id;
             Nome = nome;
-            IdProfessor = idProfessor;
-            Professor = professor;
         }
     }
 }

@@ -4,21 +4,17 @@ namespace ProjetoFinal.Models.Materias
 {
     public class Materia
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int IdDisciplina { get; set; }
-        public Disciplina Disciplina { get; set; }
+        public int MateriaId { get; set; }
+        public string Nome { get; set; }
 
         public Materia()
         {
                 
         }
-        public Materia(int id, string name, int idDisciplina, Disciplina disciplina)
+        public Materia(int materiaId, string nome)
         {
-            Id = id;
-            Name = name;
-            IdDisciplina = idDisciplina;
-            Disciplina = disciplina;
+            MateriaId = materiaId;
+            Nome = nome;
         }
     }
 }

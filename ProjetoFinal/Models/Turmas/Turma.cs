@@ -1,30 +1,27 @@
 ﻿using ProjetoFinal.Models.Disciplinas;
+using ProjetoFinal.Models.Series;
+using ProjetoFinal.Models.Usuarios;
 
 namespace ProjetoFinal.Models.Turmas
 {
     public class Turma
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+        public int TurmaId { get; set; }
+        public int SerieId { get; set; }
+        public Serie Serie { get; set; }
+        public ICollection<Aluno> Alunos { get; set; } = new List<Aluno>();
         public ICollection<Disciplina> Disciplinas { get; set; } = new List<Disciplina>();
 
         public Turma()
         {
 
         }
-        public Turma(int id, string nome)
-        {
-            Id = id;
-            Nome = nome;
-        }
 
-        public void AdicionarDisciplinas(Disciplina disciplina)
+        public Turma(int turmaId, int serieId, Serie serie)
         {
-            Disciplinas.Add(disciplina);
-        }
-        public void RemoverDisciplinas(Disciplina disciplina)
-        {
-            Disciplinas.Remove(disciplina);
+            TurmaId = turmaId;
+            SerieId = serieId;
+            Serie = serie;
         }
     }
 }
