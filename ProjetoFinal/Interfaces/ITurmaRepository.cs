@@ -1,4 +1,4 @@
-﻿using ProjetoFinal.Models;
+﻿using ProjetoFinal.Models.Turmas;
 
 namespace ProjetoFinal.Interfaces
 {

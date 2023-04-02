@@ -1,11 +1,14 @@
-﻿namespace ProjetoFinal.Interfaces
+﻿using ProjetoFinal.Models;
+using ProjetoFinal.Models.LogRegistros;
+
+namespace ProjetoFinal.Interfaces
 {
     public interface ILogAcessoRepository
     {
-        Task<LogAcesso> GetByIdAsync(int id);
-        Task<List<LogAcesso>> GetAllAsync();
-        Task AddAsync(LogAcesso logAcesso);
-        Task UpdateAsync(LogAcesso logAcesso);
+        Task<Log> GetByIdAsync(int id);
+        Task<List<Log>> GetAllAsync();
+        Task AddAsync(Log logAcesso);
+        Task UpdateAsync(Log logAcesso);
         Task DeleteAsync(int id);
     }
 }

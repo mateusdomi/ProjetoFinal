@@ -1,4 +1,5 @@
 ﻿using ProjetoFinal.Models;
+using ProjetoFinal.Models.Notificacoes;
 
 namespace ProjetoFinal.Interfaces
 {
