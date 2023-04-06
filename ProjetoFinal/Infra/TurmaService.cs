@@ -1,39 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjetoFinal.Data;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models.Turmas;
 
 namespace ProjetoFinal.Infra
 {
-    public class TurmaService: ITurmaService
+    public class TurmaService : ITurmaService
     {
-        private readonly MeuDbContext _context;
+        private readonly ProjetoFinalContext _context;
 
-        public TurmaService(MeuDbContext context)
+        public TurmaService(ProjetoFinalContext context)
         {
             _context = context;
         }
 
         public async Task<List<Turma>> ObterTodosAsync()
         {
-            return await _context.Turmas
-                .Include(t => t.Serie)
-                .Include(t => t.Alunos)
-                .Include(t => t.Disciplinas)
-                .ToListAsync();
+            return await _context.Turma
+                         .Include(t => t.Alunos)
+                         .ToListAsync();
         }
 
         public async Task<Turma> ObterPorIdAsync(int id)
         {
-            return await _context.Turmas
-                .Include(t => t.Serie)
+            return await _context.Turma
                 .Include(t => t.Alunos)
-                .Include(t => t.Disciplinas)
                 .FirstOrDefaultAsync(t => t.TurmaId == id);
         }
 
         public async Task InserirAsync(Turma turma)
         {
-            _context.Turmas.Add(turma);
+            _context.Turma.Add(turma);
             await _context.SaveChangesAsync();
         }
 
@@ -45,7 +42,7 @@ namespace ProjetoFinal.Infra
 
         public async Task RemoverAsync(Turma turma)
         {
-            _context.Turmas.Remove(turma);
+            _context.Turma.Remove(turma);
             await _context.SaveChangesAsync();
         }
     }

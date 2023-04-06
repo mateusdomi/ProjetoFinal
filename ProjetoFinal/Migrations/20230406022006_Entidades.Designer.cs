@@ -12,8 +12,8 @@ using ProjetoFinal.Data;
 namespace ProjetoFinal.Migrations
 {
     [DbContext(typeof(ProjetoFinalContext))]
-    [Migration("20230401201350_OutrasEntidades")]
-    partial class OutrasEntidades
+    [Migration("20230406022006_Entidades")]
+    partial class Entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,9 @@ namespace ProjetoFinal.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("HistoricoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MateriaId")
                         .HasColumnType("int");
 
@@ -50,6 +53,8 @@ namespace ProjetoFinal.Migrations
                     b.HasKey("AvaliacaoId");
 
                     b.HasIndex("AlunoId");
+
+                    b.HasIndex("HistoricoId");
 
                     b.HasIndex("MateriaId");
 
@@ -68,14 +73,60 @@ namespace ProjetoFinal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TurmaId")
+                    b.Property<int?>("SerieId")
                         .HasColumnType("int");
 
                     b.HasKey("DisciplinaId");
 
-                    b.HasIndex("TurmaId");
+                    b.HasIndex("SerieId");
 
                     b.ToTable("Disciplina");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Historicos.Historico", b =>
+                {
+                    b.Property<int>("HistoricoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoricoId"), 1L, 1);
+
+                    b.Property<int>("AlunoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HistoricoId");
+
+                    b.HasIndex("AlunoId");
+
+                    b.ToTable("Historico");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.LogRegistros.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoLog")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Materias.Materia", b =>
@@ -115,6 +166,9 @@ namespace ProjetoFinal.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("MensagemId");
 
@@ -179,7 +233,11 @@ namespace ProjetoFinal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurmaId"), 1L, 1);
 
-                    b.Property<int>("SerieId")
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SerieId")
                         .HasColumnType("int");
 
                     b.HasKey("TurmaId");
@@ -189,7 +247,7 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("Turma");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Usuario", b =>
+            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Administrador", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,54 +255,128 @@ namespace ProjetoFinal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Atividade")
+                    b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Administrador");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Aluno", b =>
+                {
+                    b.Property<int>("AlunoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlunoId"), 1L, 1);
+
+                    b.Property<int>("PessoaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TurmaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlunoId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.HasIndex("TurmaId");
+
+                    b.ToTable("Aluno");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Pessoa", b =>
+                {
+                    b.Property<int>("PessoaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PessoaId"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Nascimento")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UltimoNome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Usuario");
+                    b.HasKey("PessoaId");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Usuario");
-                });
-
-            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Aluno", b =>
-                {
-                    b.HasBaseType("ProjetoFinal.Models.Usuarios.Usuario");
-
-                    b.Property<int>("TurmaId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("TurmaId");
-
-                    b.HasDiscriminator().HasValue("Aluno");
+                    b.ToTable("Pessoa");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Professor", b =>
                 {
-                    b.HasBaseType("ProjetoFinal.Models.Usuarios.Usuario");
+                    b.Property<int>("ProfessorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfessorId"), 1L, 1);
 
                     b.Property<int>("DisciplinaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PessoaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProfessorId");
+
                     b.HasIndex("DisciplinaId");
 
-                    b.HasDiscriminator().HasValue("Professor");
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("Professor");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Usuario", b =>
+                {
+                    b.Property<int>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioId"), 1L, 1);
+
+                    b.Property<int>("Atividade")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PessoaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UsuarioId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Avaliacoes.Avaliacao", b =>
@@ -252,6 +384,10 @@ namespace ProjetoFinal.Migrations
                     b.HasOne("ProjetoFinal.Models.Usuarios.Aluno", null)
                         .WithMany("Avaliacoes")
                         .HasForeignKey("AlunoId");
+
+                    b.HasOne("ProjetoFinal.Models.Historicos.Historico", null)
+                        .WithMany("Avaliacoes")
+                        .HasForeignKey("HistoricoId");
 
                     b.HasOne("ProjetoFinal.Models.Materias.Materia", "Materia")
                         .WithMany()
@@ -264,9 +400,31 @@ namespace ProjetoFinal.Migrations
 
             modelBuilder.Entity("ProjetoFinal.Models.Disciplinas.Disciplina", b =>
                 {
-                    b.HasOne("ProjetoFinal.Models.Turmas.Turma", null)
+                    b.HasOne("ProjetoFinal.Models.Series.Serie", null)
                         .WithMany("Disciplinas")
-                        .HasForeignKey("TurmaId");
+                        .HasForeignKey("SerieId");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Historicos.Historico", b =>
+                {
+                    b.HasOne("ProjetoFinal.Models.Usuarios.Aluno", "Aluno")
+                        .WithMany()
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Aluno");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.LogRegistros.Log", b =>
+                {
+                    b.HasOne("ProjetoFinal.Models.Usuarios.Administrador", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Materias.Materia", b =>
@@ -297,22 +455,37 @@ namespace ProjetoFinal.Migrations
 
             modelBuilder.Entity("ProjetoFinal.Models.Turmas.Turma", b =>
                 {
-                    b.HasOne("ProjetoFinal.Models.Series.Serie", "Serie")
+                    b.HasOne("ProjetoFinal.Models.Series.Serie", null)
+                        .WithMany("Turmas")
+                        .HasForeignKey("SerieId");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Administrador", b =>
+                {
+                    b.HasOne("ProjetoFinal.Models.Usuarios.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("SerieId")
+                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Serie");
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Aluno", b =>
                 {
+                    b.HasOne("ProjetoFinal.Models.Usuarios.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProjetoFinal.Models.Turmas.Turma", "Turma")
                         .WithMany("Alunos")
                         .HasForeignKey("TurmaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Pessoa");
 
                     b.Navigation("Turma");
                 });
@@ -325,7 +498,24 @@ namespace ProjetoFinal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProjetoFinal.Models.Usuarios.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Disciplina");
+
+                    b.Navigation("Pessoa");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Usuario", b =>
+                {
+                    b.HasOne("ProjetoFinal.Models.Usuarios.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId");
+
+                    b.Navigation("Pessoa");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Disciplinas.Disciplina", b =>
@@ -335,11 +525,21 @@ namespace ProjetoFinal.Migrations
                     b.Navigation("Professores");
                 });
 
+            modelBuilder.Entity("ProjetoFinal.Models.Historicos.Historico", b =>
+                {
+                    b.Navigation("Avaliacoes");
+                });
+
+            modelBuilder.Entity("ProjetoFinal.Models.Series.Serie", b =>
+                {
+                    b.Navigation("Disciplinas");
+
+                    b.Navigation("Turmas");
+                });
+
             modelBuilder.Entity("ProjetoFinal.Models.Turmas.Turma", b =>
                 {
                     b.Navigation("Alunos");
-
-                    b.Navigation("Disciplinas");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Usuarios.Aluno", b =>

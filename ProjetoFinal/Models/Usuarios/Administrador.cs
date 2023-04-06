@@ -2,7 +2,20 @@
 
 namespace ProjetoFinal.Models.Usuarios
 {
-    public class Administrador : Usuario
+    public class Administrador
     {
+        public int Id { get; set; }
+        public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
+        public Administrador()
+        {
+
+        }
+        public Administrador(int id, int usuarioId, Usuario usuario)
+        {
+            Id = id;
+            UsuarioId = usuarioId;
+            Usuario = usuario;
+        }
     }
 }

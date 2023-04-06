@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoFinal.Models.Usuarios
 {
-    public class Aluno:Usuario
+    public class Aluno
     {
+        public int AlunoId { get; set; }
+        public int PessoaId { get; set; }
+        public Pessoa Pessoa { get; set; }
         public int TurmaId { get; set; }
         public Turma Turma { get; set; }
         public ICollection<Avaliacao> Avaliacoes { get; set; } = new List<Avaliacao>();
@@ -14,9 +17,11 @@ namespace ProjetoFinal.Models.Usuarios
         {
 
         }
-
-        public Aluno(int turmaId, Turma turma)
+        public Aluno(int alunoId, int pessoaId, Pessoa pessoa, int turmaId, Turma turma)
         {
+            AlunoId = alunoId;
+            PessoaId = pessoaId;
+            Pessoa = pessoa;
             TurmaId = turmaId;
             Turma = turma;
         }

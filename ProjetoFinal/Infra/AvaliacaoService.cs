@@ -8,60 +8,52 @@ using ProjetoFinal.Models.Avaliacoes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjetoFinal.Data;
 
 namespace ProjetoFinal.Infra
 {
     public class AvaliacaoService : IAvaliacaoService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ProjetoFinalContext _context;
 
-        public AvaliacaoService(ApplicationDbContext context)
+        public AvaliacaoService(ProjetoFinalContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Avaliacao>> ListarTodasAvaliacoes()
+        public Task AtualizarAvalicao(Avaliacao avaliacao)
         {
-            return await _context.Avaliacoes.ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<Avaliacao> BuscarAvaliacao(int id)
+        public Task<Avaliacao> BuscarAvaliacao(int id)
         {
-            return await _context.Avaliacoes.FindAsync(id);
+            throw new NotImplementedException();
         }
 
-        public async Task<List<Avaliacao>> FiltrarPeloTipoDeAvalicao(Tipo tipo)
+        public Task ExcluirAvaliacao(int id)
         {
-            return await _context.Avaliacoes.Where(a => a.Tipo == tipo).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<List<Avaliacao>> FiltrarAvaliacoesPorMateria(int materiaId)
+        public Task<List<Avaliacao>> FiltrarAvaliacoesPorMateria(int materiaId)
         {
-            return await _context.Avaliacoes.Where(a => a.MateriaId == materiaId).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task InserirAvaliacao(Avaliacao avaliacao)
+        public Task<List<Avaliacao>> FiltrarPeloTipoDeAvalicao(Tipo tipo)
         {
-            _context.Avaliacoes.Add(avaliacao);
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task AtualizarAvalicao(Avaliacao avaliacao)
+        public Task InserirAvaliacao(Avaliacao avaliacao)
         {
-            _context.Entry(avaliacao).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task ExcluirAvaliacao(int id)
+        public Task<List<Avaliacao>> ListarTodasAvaliacoes()
         {
-            var avaliacao = await _context.Avaliacoes.FindAsync(id);
-            _context.Avaliacoes.Remove(avaliacao);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<bool> AvaliacaoExists(int id)
-        {
-            return await _context.Avaliacoes.AnyAsync(a => a.AvaliacaoId == id);
+            throw new NotImplementedException();
         }
     }
 }

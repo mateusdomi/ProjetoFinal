@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjetoFinal.Data;
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models.Usuarios;
 
@@ -6,26 +7,26 @@ namespace ProjetoFinal.Infra
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly MeuDbContext _context;
+        private readonly ProjetoFinalContext _context;
 
-        public UsuarioService(MeuDbContext context)
+        public UsuarioService(ProjetoFinalContext context)
         {
             _context = context;
         }
 
         public async Task<List<Usuario>> ObterTodosAsync()
         {
-            return await _context.Usuarios.ToListAsync();
+            return await _context.Usuario.ToListAsync();
         }
 
         public async Task<Usuario> ObterPorIdAsync(int id)
         {
-            return await _context.Usuarios.FindAsync(id);
+            return await _context.Usuario.FindAsync(id);
         }
 
         public async Task InserirAsync(Usuario usuario)
         {
-            _context.Usuarios.Add(usuario);
+            _context.Usuario.Add(usuario);
             await _context.SaveChangesAsync();
         }
 
@@ -37,7 +38,7 @@ namespace ProjetoFinal.Infra
 
         public async Task RemoverAsync(Usuario usuario)
         {
-            _context.Usuarios.Remove(usuario);
+            _context.Usuario.Remove(usuario);
             await _context.SaveChangesAsync();
         }
     }
