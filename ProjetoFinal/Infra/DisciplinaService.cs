@@ -1,31 +1,28 @@
 ﻿using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models.Disciplinas;
 using Microsoft.EntityFrameworkCore;
-using ProjetoFinal.Infra;
-using ProjetoFinal.Models.Disciplinas;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using ProjetoFinal.Data;
 
 namespace ProjetoFinal.Infra
 {
 
     public class DisciplinaService : IDisciplinaService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ProjetoFinalContext _context;
 
-        public DisciplinaService(ApplicationDbContext context)
+        public DisciplinaService(ProjetoFinalContext context)
         {
             _context = context;
         }
 
         public async Task<List<Disciplina>> ListarTodasDisciplinas()
         {
-            return await _context.Disciplinas.ToListAsync();
+            return await _context.Disciplina.ToListAsync();
         }
 
         public async Task<Disciplina> BuscarDisciplina(int id)
         {
-            return await _context.Disciplinas.FindAsync(id);
+            return await _context.Disciplina.FindAsync(id);
         }
 
         public async Task InserirDisciplina(Disciplina disciplina)
@@ -42,14 +39,14 @@ namespace ProjetoFinal.Infra
 
         public async Task ExcluirDisciplina(int id)
         {
-            var disciplina = await _context.Disciplinas.FindAsync(id);
-            _context.Disciplinas.Remove(disciplina);
+            var disciplina = await _context.Disciplina.FindAsync(id);
+            _context.Disciplina.Remove(disciplina);
             await _context.SaveChangesAsync();
         }
 
         public async Task<bool> DisciplinaExists(int id)
         {
-            return await _context.Disciplinas.AnyAsync(d => d.DisciplinaId == id);
+            return await _context.Disciplina.AnyAsync(d => d.DisciplinaId == id);
         }
     }
 }

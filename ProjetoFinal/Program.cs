@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using ProjetoFinal.Data;
 
 
@@ -15,13 +13,18 @@ builder.Services.AddDbContext<ProjetoFinalContext>(options =>
     });
 });
 
+builder.Services.AddScoped<SeedingService>();
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    seedDb();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -40,3 +43,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void seedDb()
+{
+    using (var scoped = app.Services.CreateScope())
+    {
+        var dbinitializer = scoped.ServiceProvider.GetRequiredService<SeedingService>();
+        dbinitializer.Seed();
+
+    }
+};

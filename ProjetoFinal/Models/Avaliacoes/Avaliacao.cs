@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProjetoFinal.Models.Avalicacao.Enums;
-using ProjetoFinal.Models.Disciplinas;
 using ProjetoFinal.Models.Materias;
-using ProjetoFinal.Models.Turmas;
-using ProjetoFinal.Models.Usuarios;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoFinal.Models.Avaliacoes

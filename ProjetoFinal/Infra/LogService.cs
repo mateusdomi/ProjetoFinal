@@ -2,41 +2,42 @@
 using ProjetoFinal.Interfaces;
 using ProjetoFinal.Models.LogRegistros.Enums;
 using ProjetoFinal.Models.LogRegistros;
+using ProjetoFinal.Data;
 
 namespace ProjetoFinal.Infra
 {
     public class LogService : ILogService
     {
-        private readonly MeuDbContext _context;
+        private readonly ProjetoFinalContext _context;
 
-        public LogService(MeuDbContext context)
+        public LogService(ProjetoFinalContext context)
         {
             _context = context;
         }
 
         public async Task<List<Log>> ListarLogs()
         {
-            return await _context.Logs.ToListAsync();
+            return await _context.Log.ToListAsync();
         }
 
         public async Task<Log> BuscarLog(int id)
         {
-            return await _context.Logs.FindAsync(id);
+            return await _context.Log.FindAsync(id);
         }
 
         public async Task<List<Log>> FiltrarLogsPorTipo(TipoLog tipo)
         {
-            return await _context.Logs.Where(l => l.TipoLog == tipo).ToListAsync();
+            return await _context.Log.Where(l => l.TipoLog == tipo).ToListAsync();
         }
 
         public async Task<List<Log>> FiltrarLogsPorUsuario(int usuarioId)
         {
-            return await _context.Logs.Where(l => l.UsuarioId == usuarioId).ToListAsync();
+            return await _context.Log.Where(l => l.UsuarioId == usuarioId).ToListAsync();
         }
 
         public async Task InserirLog(Log log)
         {
-            _context.Logs.Add(log);
+            _context.Log.Add(log);
             await _context.SaveChangesAsync();
         }
 
@@ -48,14 +49,14 @@ namespace ProjetoFinal.Infra
 
         public async Task ExcluirLog(int id)
         {
-            var log = await _context.Logs.FindAsync(id);
-            _context.Logs.Remove(log);
+            var log = await _context.Log.FindAsync(id);
+            _context.Log.Remove(log);
             await _context.SaveChangesAsync();
         }
 
         public async Task<bool> LogExists(int id)
         {
-            return await _context.Logs.AnyAsync(l => l.Id == id);
+            return await _context.Log.AnyAsync(l => l.Id == id);
         }
     }
 
