@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoFinal.Data;
-
+using ProjetoFinal.Infra;
+using ProjetoFinal.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,19 @@ builder.Services.AddDbContext<ProjetoFinalContext>(options =>
 });
 
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<IAdministradorService, AdministradorService>();
+builder.Services.AddScoped<IAlunoService, AlunoService>();
+builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
+builder.Services.AddScoped<IDisciplinaService, DisciplinaService>();
+builder.Services.AddScoped<IHistoricoService, HistoricoService>();
+builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddScoped<IMateriaService, MateriaService>();
+builder.Services.AddScoped<IMensagemService, MensagemService>();
+builder.Services.AddScoped<INotificacaoService, NotificacaoService>();
+builder.Services.AddScoped<IProfessorService, ProfessorService>();
+builder.Services.AddScoped<ISerieService, SerieService>();
+builder.Services.AddScoped<ITurmaService, TurmaService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
