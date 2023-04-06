@@ -2,7 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjetoFinal.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<ProjetoFinalContext>(options =>
 {
     var conString = builder.Configuration.GetConnectionString("ProjetoFinalContext");

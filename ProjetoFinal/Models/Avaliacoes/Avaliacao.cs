@@ -15,6 +15,7 @@ namespace ProjetoFinal.Models.Avaliacoes
         public DateTime Data { get; set; }
         public int MateriaId { get; set; }
         public Materia Materia { get; set; }
+
         [Column(TypeName = "decimal(18,4)")]
         public decimal Nota { get; set; }
 
