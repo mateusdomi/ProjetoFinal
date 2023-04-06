@@ -7,21 +7,18 @@ namespace ProjetoFinal.Models.Turmas
     public class Turma
     {
         public int TurmaId { get; set; }
-        public int SerieId { get; set; }
-        public Serie Serie { get; set; }
+        public string Nome { get; set; }
         public ICollection<Aluno> Alunos { get; set; } = new List<Aluno>();
-        public ICollection<Disciplina> Disciplinas { get; set; } = new List<Disciplina>();
 
         public Turma()
         {
 
         }
 
-        public Turma(int turmaId, int serieId, Serie serie)
+        public Turma(int turmaId, string nome)
         {
             TurmaId = turmaId;
-            SerieId = serieId;
-            Serie = serie;
+            Nome = nome;
         }
     }
 }

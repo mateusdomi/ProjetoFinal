@@ -3,7 +3,7 @@ using ProjetoFinal.Models.Notificacoes;
 
 namespace ProjetoFinal.Interfaces
 {
-    public interface INotificacaoRepository
+    public interface INota
     {
         Task<Notificacao> ObterPorId(int id);
         Task<IEnumerable<Notificacao>> ObterPorUsuario(int idUsuario);
