@@ -12,16 +12,14 @@ namespace ProjetoFinal.Models.Avaliacoes
         public DateTime Data { get; set; }
         public int MateriaId { get; set; }
         public Materia Materia { get; set; }
-
-        [Column(TypeName = "decimal(18,4)")]
-        public decimal Nota { get; set; }
+        public int Nota { get; set; }
 
         public Avaliacao()
         {
 
         }
 
-        public Avaliacao(int avaliacaoId, Tipo tipo, DateTime data, int materiaId, Materia materia, decimal nota)
+        public Avaliacao(int avaliacaoId, Tipo tipo, DateTime data, int materiaId, Materia materia, int nota)
         {
             AvaliacaoId = avaliacaoId;
             Tipo = tipo;

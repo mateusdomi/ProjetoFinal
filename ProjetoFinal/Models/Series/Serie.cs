@@ -1,5 +1,6 @@
 ﻿using ProjetoFinal.Models.Disciplinas;
 using ProjetoFinal.Models.Turmas;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoFinal.Models.Series
 {

@@ -1,4 +1,6 @@
-﻿namespace ProjetoFinal.Models.Usuarios
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProjetoFinal.Models.Usuarios
 {
     public class Pessoa
     {
@@ -8,6 +10,10 @@
         public string Email { get; set; }
         public string Telefone { get; set; }
         public DateTime Nascimento { get; set; }
+        public Pessoa()
+        {
+                
+        }
 
         public Pessoa(int pessoaId, string nome, string ultimoNome, string email, string telefone, DateTime nascimento)
         {

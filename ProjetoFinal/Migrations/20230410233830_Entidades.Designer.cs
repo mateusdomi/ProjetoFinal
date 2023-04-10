@@ -12,7 +12,7 @@ using ProjetoFinal.Data;
 namespace ProjetoFinal.Migrations
 {
     [DbContext(typeof(ProjetoFinalContext))]
-    [Migration("20230406022006_Entidades")]
+    [Migration("20230410233830_Entidades")]
     partial class Entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
