@@ -7,7 +7,6 @@ using ProjetoFinal.Models.Notificacoes;
 using ProjetoFinal.Models.Turmas;
 using ProjetoFinal.Models.Series;
 using ProjetoFinal.Models.Historicos;
-using ProjetoFinal.Models.LogRegistros;
 
 namespace ProjetoFinal.Data
 {
@@ -34,7 +33,6 @@ namespace ProjetoFinal.Data
         public DbSet<Avaliacao> Avaliacao { get; set; }
         public DbSet<Disciplina> Disciplina { get; set; }
         public DbSet<Serie> Serie { get; set; }
-        public DbSet<Log> Log { get; set; }
         public DbSet<Materia> Materia { get; set; }
         public DbSet<Notificacao> Notificacao { get; set; }
         public DbSet<Mensagem> Mensagem { get; set; }

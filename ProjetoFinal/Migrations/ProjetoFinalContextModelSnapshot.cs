@@ -99,34 +99,6 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("Historico");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.LogRegistros.Log", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DataHora")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TipoLog")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Log");
-                });
-
             modelBuilder.Entity("ProjetoFinal.Models.Materias.Materia", b =>
                 {
                     b.Property<int>("MateriaId")
@@ -412,17 +384,6 @@ namespace ProjetoFinal.Migrations
                         .IsRequired();
 
                     b.Navigation("Aluno");
-                });
-
-            modelBuilder.Entity("ProjetoFinal.Models.LogRegistros.Log", b =>
-                {
-                    b.HasOne("ProjetoFinal.Models.Usuarios.Administrador", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ProjetoFinal.Models.Materias.Materia", b =>

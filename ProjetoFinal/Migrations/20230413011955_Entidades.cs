@@ -235,28 +235,6 @@ namespace ProjetoFinal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Log",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TipoLog = table.Column<int>(type: "int", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Log", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Log_Administrador_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "Administrador",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Historico",
                 columns: table => new
                 {
@@ -350,11 +328,6 @@ namespace ProjetoFinal.Migrations
                 column: "AlunoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Log_UsuarioId",
-                table: "Log",
-                column: "UsuarioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Materia_DisciplinaId",
                 table: "Materia",
                 column: "DisciplinaId");
@@ -393,10 +366,10 @@ namespace ProjetoFinal.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Avaliacao");
+                name: "Administrador");
 
             migrationBuilder.DropTable(
-                name: "Log");
+                name: "Avaliacao");
 
             migrationBuilder.DropTable(
                 name: "Notificacao");
@@ -411,10 +384,10 @@ namespace ProjetoFinal.Migrations
                 name: "Materia");
 
             migrationBuilder.DropTable(
-                name: "Administrador");
+                name: "Mensagem");
 
             migrationBuilder.DropTable(
-                name: "Mensagem");
+                name: "Usuario");
 
             migrationBuilder.DropTable(
                 name: "Aluno");
@@ -423,13 +396,10 @@ namespace ProjetoFinal.Migrations
                 name: "Disciplina");
 
             migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "Pessoa");
 
             migrationBuilder.DropTable(
                 name: "Turma");
-
-            migrationBuilder.DropTable(
-                name: "Pessoa");
 
             migrationBuilder.DropTable(
                 name: "Serie");

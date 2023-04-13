@@ -2,8 +2,15 @@
 using ProjetoFinal.Data;
 using ProjetoFinal.Infra;
 using ProjetoFinal.Interfaces;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+var _logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console()
+                .WriteTo.File("C:\\Users\\lucas\\Desktop\\ProjetoFinal\\Infra\\Logs\\Logs.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+builder.Logging.AddSerilog(_logger);
 
 builder.Services.AddDbContext<ProjetoFinalContext>(options =>
 {
@@ -20,7 +27,6 @@ builder.Services.AddScoped<IAlunoService, AlunoService>();
 builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
 builder.Services.AddScoped<IDisciplinaService, DisciplinaService>();
 builder.Services.AddScoped<IHistoricoService, HistoricoService>();
-builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IMateriaService, MateriaService>();
 builder.Services.AddScoped<IMensagemService, MensagemService>();
 builder.Services.AddScoped<INotificacaoService, NotificacaoService>();
