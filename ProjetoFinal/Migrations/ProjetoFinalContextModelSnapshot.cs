@@ -324,6 +324,9 @@ namespace ProjetoFinal.Migrations
                     b.Property<int>("Atividade")
                         .HasColumnType("int");
 
+                    b.Property<string>("CodigoRecup")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 

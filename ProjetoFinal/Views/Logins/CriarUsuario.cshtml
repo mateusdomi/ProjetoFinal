@@ -1,0 +1,27 @@
+﻿@model ProjetoFinal.Models.Usuarios.Usuario;
+
+@{
+    ViewData["Title"] = "Criar Usuário";
+}
+
+<form asp-action="CriarUsuario">
+    <div class="mb-3">
+        <label for="username" class="form-label">Nome</label>
+        <input asp-for="UserName" type="text" class="form-control" id="username">
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input asp-for="Password" type="password" class="form-control" id="password">
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Criar" class="btn btn-success"/>
+    </div>
+</form>
+
