@@ -1,3 +1,19 @@
-﻿@{
+﻿@model ProjetoFinal.Models.Usuarios.Usuario;
+@{
     ViewData["Title"] = "Esqueci Minha Senha";
+
 }
+
+@await Html.PartialAsync("../_Notificacao.cshtml")
+
+<h2>Esquici minha senha</h2>
+<form asp-action="EsqueciSenha">
+    <div class="mb-3">
+
+        <label for="email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Recuperar" class="btn btn-success" />
+    </div>
+</form>

@@ -13,7 +13,7 @@ using System.Text;
 
 namespace ProjetoFinal.Infraestrutura
 {
-    public class LoginService: ILoginService
+    public class LoginService : ILoginService
     {
         private readonly ProjetoFinalContext _dbContext;
 
@@ -38,12 +38,13 @@ namespace ProjetoFinal.Infraestrutura
                 return false;
             }
         }
+
         public Usuario ObterUserName(string username)
         {
             return _dbContext.Usuario.FirstOrDefault(u => u.UserName.Equals(username));
         }
 
-        public bool EsquiciSenha(string email)
+        public bool EsqueciSenha(string email)
         {
             var usuario = _dbContext.Usuario.FirstOrDefault(u => u.Email.Equals(email));
             if (usuario == null)
@@ -51,17 +52,17 @@ namespace ProjetoFinal.Infraestrutura
                 return false;
             }
 
-            var random = new Random().ToString();
+            var random = GeradorCodigo();
             usuario.CodigoRecup = random;
 
             _dbContext.SaveChanges();
 
-            var mensagem = $"Olá {usuario.UserName}, \n\nPara recuperar sua senha, use o código a seguir: {random}" +
+            var mensagem = $"Olá {usuario.UserName}, \n\nPara recuperar sua senha, use o código a seguir: {usuario.CodigoRecup}" +
                            "\n\nCaso você não tenha solicitado a recuperação de senha, por favor ignore este e-mail.";
 
             try
             {
-                return EnviarEmail(usuario, "Recuperação de senha", mensagem);
+                return EnviarEmail(usuario, "Nova Senha", mensagem);
             }
             catch (Exception)
             {
@@ -69,12 +70,25 @@ namespace ProjetoFinal.Infraestrutura
             }
 
         }
+
+        private string GeradorCodigo()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var result = new StringBuilder(5);
+            for (int i = 0; i < 5; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+            return result.ToString();
+        }
+
         public async Task<bool> RecuperarSenha(string email, string codigoRecup, string newPassword)
         {
             var usuario = await _dbContext.Usuario.FirstOrDefaultAsync(u => u.Email == email && u.CodigoRecup == codigoRecup);
             if (usuario == null)
             {
-                return  false;
+                return false;
             }
             usuario.Password = HashPass(newPassword);
             usuario.CodigoRecup = "";
@@ -82,13 +96,29 @@ namespace ProjetoFinal.Infraestrutura
 
 
             return true;
-           
+
         }
+
         public bool VrfSenha(Usuario usuario, string passwd)
         {
             var passdHash = HashPass(passwd);
             return usuario.Password.Equals(passdHash);
         }
+
+        public string VrfCodigo(string CodigoRecup)
+        {
+            if (!string.IsNullOrEmpty(CodigoRecup))
+            {
+                var obj = _dbContext.Usuario.Where(u => u.CodigoRecup.Equals(CodigoRecup)).FirstOrDefault();
+
+                if (obj == null)
+                    throw new InvalidOperationException("Codigo Invalido!");
+                return obj.UserName;
+
+            }
+            throw new InvalidOperationException("Codigo Invalido!");
+        }
+
         private bool VrfUserName(string username)
         {
             if (string.IsNullOrEmpty(username))
@@ -182,6 +212,21 @@ namespace ProjetoFinal.Infraestrutura
             {
                 return false;
             }
+        }
+
+        public bool MudarSenha(string senha, string username)
+        {
+
+            var user = _dbContext.Usuario.First(u => u.UserName.Equals(username));
+            if (user != null)
+            {
+
+                user.Password = HashPass(senha);
+                _dbContext.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }
