@@ -1,8 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Gmail.v1;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using Microsoft.EntityFrameworkCore;
 using ProjetoFinal.Data;
 using ProjetoFinal.Infra;
+using ProjetoFinal.Infraestrutura;
 using ProjetoFinal.Interfaces;
+using ProjetoFinal.Models.Usuarios;
 using Serilog;
+using System.Security.Cryptography;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var _logger = new LoggerConfiguration()
@@ -22,6 +30,7 @@ builder.Services.AddDbContext<ProjetoFinalContext>(options =>
 });
 
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IAdministradorService, AdministradorService>();
 builder.Services.AddScoped<IAlunoService, AlunoService>();
 builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
@@ -73,3 +82,14 @@ void seedDb()
 
     }
 };
+static string Base64UrlEncode(string input)
+{
+    var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
+    return Convert.ToBase64String(inputBytes)
+      .Replace('+', '-')
+      .Replace('/', '_')
+      .Replace("=", "");
+}
+
+
+

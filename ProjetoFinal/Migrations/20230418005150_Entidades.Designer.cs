@@ -12,7 +12,7 @@ using ProjetoFinal.Data;
 namespace ProjetoFinal.Migrations
 {
     [DbContext(typeof(ProjetoFinalContext))]
-    [Migration("20230413011955_Entidades")]
+    [Migration("20230418005150_Entidades")]
     partial class Entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -325,6 +325,9 @@ namespace ProjetoFinal.Migrations
 
                     b.Property<int>("Atividade")
                         .HasColumnType("int");
+
+                    b.Property<string>("CodigoRecup")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
