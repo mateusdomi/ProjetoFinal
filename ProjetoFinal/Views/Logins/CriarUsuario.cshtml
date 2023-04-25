@@ -4,6 +4,8 @@
     ViewData["Title"] = "Criar Usuário";
 }
 
+
+@await Html.PartialAsync("../_Notificacao.cshtml")
 <form asp-action="CriarUsuario">
     <div class="mb-3">
         <label for="username" class="form-label">Nome</label>

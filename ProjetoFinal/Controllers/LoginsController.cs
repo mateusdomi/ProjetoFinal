@@ -16,9 +16,28 @@ namespace ProjetoFinal.Controllers
         }
         [HttpGet]
         public IActionResult Index()
+
         {
-            TempData["Info"] = "Seu Codigo foi enviado com sucesso!";
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(string username, string password)
+        {
+            try
+            {
+                if (_loginService.Login(username, password))
+                    return RedirectToAction("Index","Perfils", new { UserName = username });
+
+                TempData["Warn"] = "Insira informações válidas!";
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return View();
+            }
         }
         [HttpGet]
         public IActionResult CriarUsuario()
@@ -29,8 +48,11 @@ namespace ProjetoFinal.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CriarUsuario(Usuario usuario)
         {
-            _loginService.Criar(usuario);
-            return RedirectToAction(nameof(Index));
+            if (_loginService.Criar(usuario))
+                return RedirectToAction(nameof(Index));
+
+            TempData["Warn"] = "A campos inválidos!";
+            return View();
         }
         [HttpGet]
         public IActionResult EsqueciSenha()
@@ -51,7 +73,6 @@ namespace ProjetoFinal.Controllers
         [HttpGet]
         public IActionResult VrfCodigo()
         {
-
             return View();
         }
         [HttpPost]
@@ -75,7 +96,6 @@ namespace ProjetoFinal.Controllers
         public IActionResult MudarSenha(string username)
         {
             ViewData["username"] = username;
-
             return View();
         }
         [HttpPost]
@@ -91,7 +111,7 @@ namespace ProjetoFinal.Controllers
             }
             else
             {
-                TempData["Info"] = "As senhas precisam ser parecidas";
+                TempData["Info"] = "As senhas precisam ser parecidas enão podem ser vazias!";
                 return View();
             }
         }
