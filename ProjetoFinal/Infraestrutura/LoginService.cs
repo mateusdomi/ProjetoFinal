@@ -24,8 +24,9 @@ namespace ProjetoFinal.Infraestrutura
 
         public bool Criar(Usuario usuario)
         {
-            if (VrfUserName(usuario.UserName) == true && VrfEmail(usuario.Email) == true)
+            if (VrfUserName(usuario.UserName) == true && VrfEmail(usuario.Email) == true && usuario.Password != null)
             {
+                usuario.CreateAt = DateTime.Now;
                 var passwordHash = HashPass(usuario.Password);
                 usuario.Password = passwordHash;
                 _dbContext.Usuario.Add(usuario);
@@ -39,9 +40,18 @@ namespace ProjetoFinal.Infraestrutura
             }
         }
 
-        public Usuario ObterUserName(string username)
+        public bool Login(string username, string password)
         {
-            return _dbContext.Usuario.FirstOrDefault(u => u.UserName.Equals(username));
+            var usuario = _dbContext.Usuario.Where(u => u.UserName.Equals(username)).FirstOrDefault();
+            if (usuario == null)
+                return false;
+
+            var passhash = HashPass(password);
+
+            if (passhash.Equals(usuario.Password))
+                return true;
+
+            return false;
         }
 
         public bool EsqueciSenha(string email)
@@ -126,7 +136,7 @@ namespace ProjetoFinal.Infraestrutura
                 return false;
             }
 
-            var obj = _dbContext.Usuario.FirstOrDefault(u => u.UserName.Equals(username));
+            var obj = _dbContext.Usuario.Where(u => u.UserName.Equals(username)).FirstOrDefault();
 
             if (obj == null)
             {
@@ -144,7 +154,7 @@ namespace ProjetoFinal.Infraestrutura
                 return false;
             }
 
-            var obj = _dbContext.Usuario.FirstOrDefault(u => u.Email.Equals(email));
+            var obj = _dbContext.Usuario.Where(u => u.Email.Equals(email)).FirstOrDefault();
 
             if (obj == null)
             {
@@ -217,7 +227,7 @@ namespace ProjetoFinal.Infraestrutura
         public bool MudarSenha(string senha, string username)
         {
 
-            var user = _dbContext.Usuario.First(u => u.UserName.Equals(username));
+            var user = _dbContext.Usuario.Where(u => u.UserName.Equals(username)).FirstOrDefault();
             if (user != null)
             {
 
