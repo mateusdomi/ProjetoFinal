@@ -24,8 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Exemplos.cs" />
+    <Compile Remove="Controllers\NotificationFilter.cs" />
   </ItemGroup>
 
 </Project>

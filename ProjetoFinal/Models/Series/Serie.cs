@@ -10,7 +10,10 @@ namespace ProjetoFinal.Models.Series
         public string Nome { get; set; }
         public ICollection<Disciplina> Disciplinas { get; set; } = new List<Disciplina>();
         public ICollection<Turma> Turmas { get; set; } = new List<Turma>();
-        public Serie() { }
+        public Serie()
+        {
+
+        }
 
         public Serie(int serieId, string nome)
         {

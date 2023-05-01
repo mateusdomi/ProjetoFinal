@@ -32,11 +32,11 @@ namespace ProjetoFinal.Controllers
             return View(avaliacao);
         }
 
-        public async Task<IActionResult> Criar()
+       /* public async Task<IActionResult> Criar()
         {
             ViewBag.Materias = await _avaliacaoService.ListarTodasAvaliacoes();
             return View();
-        }
+        }*/
 
         [HttpPost]
         [ValidateAntiForgeryToken]

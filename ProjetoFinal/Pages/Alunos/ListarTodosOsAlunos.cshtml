@@ -1,0 +1,38 @@
+﻿@model List<ProjetoFinal.Models.Usuarios.Aluno>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h1>Alunos</h1>
+
+<p>
+    <a asp-action="Create">Adicionar novo aluno</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr>
+                <td>@aluno.Id</td>
+                <td>@aluno.Nome</td>
+                <td>@aluno.Idade</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@aluno.Id">Detalhes</a> |
+                    <a asp-action="Edit" asp-route-id="@aluno.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@aluno.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
